@@ -1,0 +1,6 @@
+/* 全局样式入口：引入设计系统主题 */
+@import './styles/theme.css';
+
+code {
+  font-family: var(--font-mono);
+}

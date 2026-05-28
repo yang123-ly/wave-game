@@ -1,0 +1,133 @@
+.game-page {
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg-deep);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ===== 3D 模式：Canvas 占满 ===== */
+.game-page-3d .canvas-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.finish-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, rgba(5, 5, 10, 0.25) 0%, rgba(5, 5, 10, 0.7) 80%);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: fade-in 0.3s ease-out;
+  pointer-events: none;
+}
+
+.finish-text {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 12vw, 9rem);
+  font-weight: 900;
+  letter-spacing: 8px;
+  background: linear-gradient(135deg, var(--neon-purple), var(--neon-cyan), var(--neon-pink));
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 60px rgba(255, 255, 255, 0.4);
+  animation: gradient-shift 2s ease infinite, countdown-zoom 0.6s ease-out;
+}
+
+.finish-sub {
+  margin-top: 16px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 6px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ===== 强制横屏提示（仅在小屏 + 竖屏时显示）===== */
+.rotate-hint {
+  display: none;
+}
+
+@media (max-width: 900px) and (orientation: portrait) {
+  .rotate-hint {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: var(--bg-deep);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 40px;
+    text-align: center;
+  }
+  .rotate-hint .icon {
+    font-size: 5rem;
+    animation: rotate-phone 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 16px var(--neon-cyan));
+  }
+  .rotate-hint h2 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    letter-spacing: 4px;
+    color: var(--neon-cyan);
+    margin: 0;
+    text-shadow: 0 0 16px var(--neon-cyan);
+  }
+  .rotate-hint p {
+    color: var(--text-secondary);
+    letter-spacing: 2px;
+    margin: 0;
+  }
+  /* 小屏竖屏时隐藏游戏主内容 */
+  .game-ready, .game-countdown, .game-arena {
+    display: none !important;
+  }
+}
+
+@keyframes rotate-phone {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(90deg); }
+}
+
+/* ===== 返回大厅按钮（3D 模式） ===== */
+.back-to-lobby-btn {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 8px 20px;
+  background: rgba(5, 5, 10, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s;
+  z-index: 20;
+}
+
+.back-to-lobby-btn:hover {
+  border-color: var(--neon-cyan);
+  color: var(--neon-cyan);
+  box-shadow: 0 0 12px var(--neon-cyan);
+}

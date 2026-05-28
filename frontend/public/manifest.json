@@ -1,0 +1,9 @@
+{
+  "short_name": "Duo Dash",
+  "name": "双人对决·极速任务王",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#667eea",
+  "background_color": "#ffffff"
+}

@@ -1,0 +1,364 @@
+/* ===== Profile Page ===== */
+.profile-page {
+  position: relative;
+  min-height: 100vh;
+  background: var(--bg-deep, #050510);
+  color: #fff;
+  font-family: var(--font-display, sans-serif);
+  overflow-x: hidden;
+}
+
+.profile-page-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #050510;
+  color: #fff;
+  gap: 16px;
+}
+
+/* ===== Top Nav ===== */
+.profile-nav {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 32px;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: rgba(5, 5, 16, 0.6);
+}
+
+.profile-back,
+.profile-logout {
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  color: #00d4ff;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  transition: all 0.2s;
+}
+.profile-back:hover { background: rgba(0, 212, 255, 0.2); transform: translateX(-2px); }
+.profile-logout {
+  color: #ff4d8d;
+  background: rgba(255, 77, 141, 0.1);
+  border-color: rgba(255, 77, 141, 0.3);
+}
+.profile-logout:hover { background: rgba(255, 77, 141, 0.2); }
+
+.profile-nav-title {
+  font-size: 1.1rem;
+  letter-spacing: 8px;
+  color: #00d4ff;
+  text-shadow: 0 0 12px #00d4ff;
+}
+
+/* ===== Main ===== */
+.profile-main {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 32px;
+  padding: 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ===== 左侧 3D ===== */
+.profile-left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.profile-3d-wrap {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  border-radius: 16px;
+  overflow: hidden;
+  /* 明亮风：浅蓝边框 + 柔光阴影 */
+  border: 1px solid rgba(90, 166, 255, 0.4);
+  box-shadow:
+    0 8px 32px rgba(90, 166, 255, 0.2),
+    0 0 60px rgba(255, 138, 180, 0.12),
+    inset 0 0 40px rgba(255, 255, 255, 0.15);
+  background: #f5f8ff;
+}
+
+.profile-model-info {
+  text-align: center;
+  padding: 12px 20px;
+  background: rgba(5, 5, 16, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+}
+.profile-model-name {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #00d4ff;
+  text-shadow: 0 0 12px #00d4ff;
+  letter-spacing: 4px;
+}
+.profile-model-sub {
+  margin-top: 2px;
+  font-size: 0.85rem;
+  opacity: 0.7;
+  letter-spacing: 6px;
+}
+.profile-model-tip {
+  margin-top: 8px;
+  font-size: 0.75rem;
+  opacity: 0.5;
+  letter-spacing: 2px;
+}
+
+/* ===== 动作切换条 ===== */
+.profile-action-bar {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(90, 166, 255, 0.3);
+  border-radius: 999px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.95rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-out-expo, ease);
+}
+.action-btn:hover {
+  background: rgba(90, 166, 255, 0.18);
+  transform: translateY(-2px);
+}
+.action-btn.is-active {
+  background: linear-gradient(135deg, #5aa6ff, #ff8ab4);
+  border-color: transparent;
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(90, 166, 255, 0.4);
+}
+.action-icon { font-size: 1.3rem; }
+.action-name { letter-spacing: 3px; }
+
+.profile-model-switch {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.model-pill {
+  padding: 6px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.model-pill:hover { background: rgba(0, 212, 255, 0.15); }
+.model-pill.is-active {
+  background: rgba(0, 212, 255, 0.25);
+  border-color: #00d4ff;
+  color: #00d4ff;
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.4);
+}
+
+/* ===== 右侧 ===== */
+.profile-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* glass-card 复用 theme.css，没有就 fallback */
+.glass-card {
+  background: rgba(5, 5, 16, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 24px;
+}
+
+/* 用户卡 */
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.profile-avatar-big {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00d4ff 0%, #ff4d8d 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: 900;
+  color: #050510;
+  box-shadow: 0 0 24px rgba(0, 212, 255, 0.5);
+}
+.profile-meta { flex: 1; min-width: 0; }
+.profile-name {
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.profile-username {
+  font-family: monospace;
+  font-size: 0.9rem;
+  opacity: 0.6;
+  margin-top: 2px;
+}
+.profile-id {
+  font-family: monospace;
+  font-size: 0.75rem;
+  opacity: 0.4;
+  margin-top: 4px;
+}
+
+/* 战绩 */
+.stats-title {
+  font-size: 0.95rem;
+  letter-spacing: 6px;
+  color: #00d4ff;
+  margin: 0 0 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.stats-line {
+  width: 4px;
+  height: 18px;
+  background: linear-gradient(180deg, #00d4ff, #ff4d8d);
+  border-radius: 2px;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.stat-block {
+  padding: 14px 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  text-align: center;
+  transition: all 0.2s;
+}
+.stat-block:hover { transform: translateY(-2px); }
+.stat-cyan    { border-color: rgba(0, 212, 255, 0.3); }
+.stat-cyan .stat-value    { color: #00d4ff; text-shadow: 0 0 10px #00d4ff; }
+.stat-purple  { border-color: rgba(160, 100, 255, 0.3); }
+.stat-purple .stat-value  { color: #a064ff; text-shadow: 0 0 10px #a064ff; }
+.stat-magenta { border-color: rgba(255, 77, 141, 0.3); }
+.stat-magenta .stat-value { color: #ff4d8d; text-shadow: 0 0 10px #ff4d8d; }
+
+.stat-value {
+  font-family: monospace;
+  font-size: 1.8rem;
+  font-weight: 900;
+}
+.stat-suffix {
+  font-size: 0.7rem;
+  margin-left: 4px;
+  opacity: 0.7;
+}
+.stat-label {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+/* 快捷入口 */
+.profile-quick {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.quick-tile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px;
+  background: rgba(5, 5, 16, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  color: #fff;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+.quick-tile:hover {
+  background: rgba(0, 212, 255, 0.1);
+  border-color: rgba(0, 212, 255, 0.3);
+  transform: translateY(-2px);
+}
+.quick-icon {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+}
+.quick-text { display: flex; flex-direction: column; min-width: 0; }
+.quick-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.quick-sub {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  opacity: 0.5;
+  margin-top: 2px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .profile-main {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+  .profile-3d-wrap { height: 480px; }
+}
+@media (max-width: 600px) {
+  .profile-nav { padding: 14px 16px; }
+  .profile-nav-title { font-size: 0.85rem; letter-spacing: 4px; }
+  .profile-3d-wrap { height: 380px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .profile-quick { grid-template-columns: 1fr; }
+}
+
+/* lobby 头像 / 用户名可点击样式（在这里挂全局更直接） */
+.lobby-user .user-card { cursor: pointer; transition: transform 0.2s; }
+.lobby-user .user-card:hover { transform: scale(1.04); }
+.lobby-user .user-card:hover .user-avatar {
+  box-shadow: 0 0 20px #00d4ff;
+}

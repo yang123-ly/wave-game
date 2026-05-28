@@ -1,0 +1,5 @@
+/* RegisterPage 复用 LoginPage.css 中的 .auth-* 通用样式 */
+/* 只保留极少量页面特定的微调 */
+.auth-page > .auth-back {
+  /* 占位，未来如需差异化可在此覆盖 */
+}

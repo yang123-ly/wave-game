@@ -1,0 +1,288 @@
+.wave-hud {
+  position: absolute;
+  inset: 0;
+  pointer-events: none; /* 子元素按需开启 */
+  z-index: 10;
+  color: #fff;
+  font-family: var(--font-display, sans-serif);
+}
+
+/* ===== 顶部计分 ===== */
+.wave-top {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0 32px;
+}
+
+.wave-pcard {
+  padding: 12px 20px;
+  background: rgba(5, 5, 10, 0.7);
+  border: 2px solid;
+  border-radius: 12px;
+  min-width: 160px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.3s var(--ease-out-expo, ease);
+}
+.wave-pcard.is-active {
+  box-shadow: 0 0 24px currentColor;
+  transform: scale(1.05);
+}
+.wave-pcard-left { text-align: left; }
+.wave-pcard-right { text-align: right; }
+
+.wave-pcard-name {
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  opacity: 0.9;
+}
+.wave-pcard-score {
+  font-family: monospace;
+  font-size: 2.2rem;
+  font-weight: 900;
+  text-shadow: 0 0 12px currentColor;
+  margin-top: 4px;
+}
+.wave-pcard-combo {
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  margin-top: 4px;
+  animation: combo-pulse 0.6s ease-out;
+}
+@keyframes combo-pulse {
+  0%   { transform: scale(1.4); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ===== 回合徽章 ===== */
+.wave-round-badge {
+  text-align: center;
+  padding: 10px 24px;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.wave-round-num {
+  font-family: monospace;
+  font-size: 1.1rem;
+  letter-spacing: 4px;
+  color: #00d4ff;
+  text-shadow: 0 0 12px #00d4ff;
+}
+.wave-round-sub {
+  font-size: 0.7rem;
+  letter-spacing: 6px;
+  opacity: 0.6;
+  margin-top: 2px;
+}
+
+/* ===== 倒计时 ===== */
+.wave-countdown {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display, monospace);
+  font-size: 12rem;
+  font-weight: 900;
+  color: #ffd60a;
+  text-shadow: 0 0 60px #ffd60a, 0 0 120px #ff8c00;
+  animation: countdown-pulse 1s ease-in-out;
+}
+@keyframes countdown-pulse {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+  30%  { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* ===== 回合提示 ===== */
+.wave-turn-banner {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 14px 32px;
+  background: rgba(5, 5, 10, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  min-width: 320px;
+}
+.wave-turn-name {
+  font-family: var(--font-display, monospace);
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: 4px;
+  text-shadow: 0 0 12px currentColor;
+}
+.wave-turn-tip {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  opacity: 0.75;
+}
+.wave-jumping-text {
+  font-family: var(--font-display, monospace);
+  font-size: 1.6rem;
+  letter-spacing: 6px;
+  color: #00ffaa;
+  text-shadow: 0 0 16px #00ffaa;
+}
+
+/* ===== 时间条 ===== */
+.wave-timer-bar {
+  width: 100%;
+  height: 4px;
+  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.wave-timer-fill {
+  height: 100%;
+  transition: width 0.1s linear, background 0.3s;
+  box-shadow: 0 0 8px currentColor;
+}
+.wave-timer-text {
+  font-family: monospace;
+  font-size: 0.8rem;
+  margin-top: 4px;
+  opacity: 0.7;
+}
+
+/* ===== 命中飘字 ===== */
+.wave-flash {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display, monospace);
+  font-size: 4rem;
+  font-weight: 900;
+  letter-spacing: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  animation: flash-burst 2s ease-out forwards;
+}
+.wave-flash.is-perfect { color: #00ffaa; text-shadow: 0 0 30px #00ffaa, 0 0 60px #00ffaa; }
+.wave-flash.is-hit     { color: #ffd60a; text-shadow: 0 0 20px #ffd60a; }
+.wave-flash.is-miss    { color: #ff4d8d; text-shadow: 0 0 20px #ff4d8d; }
+.wave-flash-delta {
+  font-size: 1.6rem;
+  letter-spacing: 3px;
+}
+@keyframes flash-burst {
+  0%   { opacity: 0; transform: translate(-50%, -30%) scale(0.5); }
+  20%  { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+  60%  { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -70%) scale(1); }
+}
+
+/* ===== 掷骰子按钮 ===== */
+.wave-roll-btn {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 32px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid;
+  border-radius: 999px;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.wave-roll-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.06);
+  box-shadow: 0 0 20px currentColor;
+}
+.wave-roll-btn:active {
+  transform: scale(0.95);
+}
+
+/* ===== 底部提示 ===== */
+.wave-bottom-tip {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  opacity: 0.5;
+}
+
+/* ===== 右上角 2D 俯视小地图 ===== */
+.wave-minimap {
+  position: absolute;
+  top: 90px;
+  right: 16px;
+  background: rgba(5, 5, 15, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 8px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* ===== 左下角相机参数面板 ===== */
+.wave-params-panel {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  background: rgba(5, 5, 15, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  padding: 10px 14px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 180px;
+}
+.wave-params-title {
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  opacity: 0.7;
+  margin-bottom: 4px;
+}
+.wave-params-panel label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.68rem;
+  opacity: 0.85;
+}
+.wave-params-panel input[type="range"] {
+  width: 100%;
+  height: 4px;
+  accent-color: #38bdf8;
+  cursor: pointer;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 768px) {
+  .wave-top { padding: 0 12px; }
+  .wave-pcard { min-width: 110px; padding: 8px 12px; }
+  .wave-pcard-score { font-size: 1.6rem; }
+  .wave-round-badge { padding: 6px 14px; }
+  .wave-round-num { font-size: 0.9rem; letter-spacing: 2px; }
+  .wave-turn-banner { min-width: auto; width: 90%; }
+  .wave-minimap { width: 160px; top: 70px; right: 8px; }
+}
