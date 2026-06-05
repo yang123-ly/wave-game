@@ -10,6 +10,9 @@
 /Users/yang/Desktop/demo/game/backend/src/main/java/com/duodash/repository/GameRoomRepository.java
 /Users/yang/Desktop/demo/game/backend/src/main/java/com/duodash/entity/User.java
 /Users/yang/Desktop/demo/game/backend/src/main/java/com/duodash/controller/GameRoomController.java
+/Users/yang/Desktop/demo/game/backend/src/main/java/com/duodash/entity/BoardConfig.java
+/Users/yang/Desktop/demo/game/backend/src/main/java/com/duodash/service/BoardConfigService.java
+/Users/yang/Desktop/demo/game/backend/src/main/java/com/duodash/controller/BoardConfigController.java
 /Users/yang/Desktop/demo/game/backend/src/main/java/com/duodash/service/GameRoomService.java
 /Users/yang/Desktop/demo/game/backend/src/main/java/com/duodash/entity/GameSession.java
 /Users/yang/Desktop/demo/game/backend/src/main/java/com/duodash/entity/TaskSequence.java
@@ -18,6 +21,7 @@
 /Users/yang/Desktop/demo/game/backend/src/main/java/com/duodash/entity/TaskConfig.java
 /Users/yang/Desktop/demo/game/backend/src/main/java/com/duodash/controller/UserController.java
 /Users/yang/Desktop/demo/game/backend/src/main/java/com/duodash/service/PetService.java
+/Users/yang/Desktop/demo/game/backend/src/main/java/com/duodash/repository/BoardConfigRepository.java
 /Users/yang/Desktop/demo/game/backend/src/main/java/com/duodash/dto/PetDTOs.java
 /Users/yang/Desktop/demo/game/backend/src/main/java/com/duodash/repository/GameSessionRepository.java
 /Users/yang/Desktop/demo/game/backend/src/main/java/com/duodash/controller/PetController.java

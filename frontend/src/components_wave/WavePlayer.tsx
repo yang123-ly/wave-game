@@ -38,6 +38,8 @@ const STAND_Y_OFFSET = 2.0;
 const P2_EXTRA_Y = 1.2;
 /** 头顶指示器高度 */
 const INDICATOR_HEIGHT = 5.0;
+/** 两个玩家站同一格时的 X 方向错开距离 */
+const SAME_TILE_OFFSET_X = 1.5;
 
 /**
  * 暴露当前跳跃中的格子索引（供相机读取）
@@ -57,6 +59,7 @@ interface JumpSegment {
 const WavePlayer: React.FC<Props> = ({ playerId }) => {
   const groupRef = useRef<THREE.Group>(null);
   const player = useWaveStore((s) => s[playerId]);
+  const otherPlayer = useWaveStore((s) => s[playerId === 'p1' ? 'p2' : 'p1']);
 
   const color = playerId === 'p1' ? P1_COLOR : P2_COLOR;
   const modelUrl = playerId === 'p1' ? P1_URL : P2_URL;
@@ -144,7 +147,14 @@ const WavePlayer: React.FC<Props> = ({ playerId }) => {
     const t = now * 0.001;
     const platformFloatY = Math.sin(t * 0.8 + player.platformIndex * 0.9) * 0.2;
     const extraY = playerId === 'p2' ? P2_EXTRA_Y : 0;
-    g.position.set(pos[0], platformFloatY + STAND_Y_OFFSET + extraY, pos[2]);
+
+    // 两个玩家站同一格时，X 方向错开：p1 偏左，p2 偏右
+    let offsetX = 0;
+    if (player.platformIndex === otherPlayer.platformIndex && jumpQueue.current.length === 0) {
+      offsetX = playerId === 'p1' ? -SAME_TILE_OFFSET_X : SAME_TILE_OFFSET_X;
+    }
+
+    g.position.set(pos[0] + offsetX, platformFloatY + STAND_Y_OFFSET + extraY, pos[2]);
   });
 
   return (

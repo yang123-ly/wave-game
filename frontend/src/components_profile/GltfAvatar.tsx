@@ -223,9 +223,9 @@ const GltfAvatar: React.FC<GltfAvatarProps> = ({
       console.warn('[GltfAvatar] 没有可播放的动画');
       return;
     }
-    // 如果指定了 animationName 但还没加载到（extraAnimations 异步），先不播放，等加载完 effect 重跑
+    // 如果指定了 animationName 但还没加载到（extraAnimations 异步），先播放第一个可用动画作为 fallback
     const target = animationName
-      ? (names.includes(animationName) ? animationName : null)
+      ? (names.includes(animationName) ? animationName : names[0] || null)
       : names[0];
     if (!target) return;
     const nextAction = actions[target];

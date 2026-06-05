@@ -45,6 +45,9 @@ const HomePage: React.FC = () => {
           >
             ▶ 开始游戏
           </button>
+          <button className="neon-btn" onClick={() => navigate('/config')}>
+            🗺️ 棋盘配置
+          </button>
           {!isAuthenticated && (
             <button className="neon-btn purple" onClick={() => navigate('/register')}>
               注册账号

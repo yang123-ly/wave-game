@@ -12,6 +12,7 @@ import ResultPage from './pages/ResultPage';
 import LeaderboardPage from './pages/LeaderboardPage';
 import PetsPage from './pages/PetsPage';
 import PetDetailPage from './pages/PetDetailPage';
+import BoardConfigPage from './pages/BoardConfigPage';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import './App.css';
 
@@ -35,6 +36,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/leaderboard" element={<ProtectedRoute><LeaderboardPage /></ProtectedRoute>} />
       <Route path="/pets" element={<ProtectedRoute><PetsPage /></ProtectedRoute>} />
       <Route path="/pets/:id" element={<ProtectedRoute><PetDetailPage /></ProtectedRoute>} />
+      <Route path="/config" element={<ProtectedRoute><BoardConfigPage /></ProtectedRoute>} />
     </Routes>
   );
 };

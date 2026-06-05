@@ -1,11 +1,17 @@
 /**
  * 浪尖踏歌 - 常量（跳一跳海洋模式）
+ * 赛道参数和事件从 configStore 读取（支持配置中心动态修改）
  */
 import type { DiceEvent } from './types';
+import { useConfigStore } from './configStore';
 
-/* ============ 赛道 ============ */
-/** 赛道总格数 */
-export const TOTAL_PLATFORMS = 20;
+/* ============ 赛道（动态读取 configStore） ============ */
+/** 赛道总格数（getter，实时读取配置） */
+export const TOTAL_PLATFORMS = 20; // 保留静态默认值用于类型兼容
+/** 获取实时总格数 */
+export function getTotalPlatforms(): number {
+  return useConfigStore.getState().trackParams.totalPlatforms;
+}
 /** 相邻格子 Z 方向间距 */
 export const PLATFORM_SPACING_Z = 12.0;
 /** 之字形 X 方向幅度 */
@@ -69,14 +75,38 @@ export const PLATFORM_EVENTS: string[] = [
 /**
  * 计算第 i 格的世界坐标 [x, y, z]
  * 之字形布局：沿 -Z 方向前进，每 ZIGZAG_PERIOD 格在 X 方向左右交替
+ * 动态读取 configStore 中的赛道参数
  */
 export function getWavePlatformPosition(index: number): [number, number, number] {
-  const z = -index * PLATFORM_SPACING_Z;
-  // 之字形：用三角波让 X 在 ±ZIGZAG_AMPLITUDE 之间来回
-  const phase = (index % (ZIGZAG_PERIOD * 2)) / ZIGZAG_PERIOD;
+  const { platformSpacingZ, zigzagAmplitude, zigzagPeriod } = useConfigStore.getState().trackParams;
+  const z = -index * platformSpacingZ;
+  const period = zigzagPeriod || ZIGZAG_PERIOD;
+  const phase = (index % (period * 2)) / period;
   const x = phase <= 1
-    ? ZIGZAG_AMPLITUDE * (phase * 2 - 1)
-    : ZIGZAG_AMPLITUDE * (1 - (phase - 1) * 2);
+    ? zigzagAmplitude * (phase * 2 - 1)
+    : zigzagAmplitude * (1 - (phase - 1) * 2);
   const y = 0;
   return [x, y, z];
+}
+
+/**
+ * 获取实时格子事件文案列表
+ */
+export function getPlatformEventsFromConfig(): string[] {
+  const events = useConfigStore.getState().platformEvents;
+  return events.map((e) => `${e.icon} ${e.text}`);
+}
+
+/**
+ * 获取实时骰子事件
+ */
+export function getDiceEventsFromConfig(): DiceEvent[] {
+  const events = useConfigStore.getState().diceEvents;
+  return events.map((e) => ({
+    face: e.face as any,
+    kind: 'move1' as const,
+    name: e.name,
+    icon: e.icon,
+    detail: e.detail,
+  }));
 }

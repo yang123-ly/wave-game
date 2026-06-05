@@ -116,4 +116,53 @@ export const gameApi = {
   getGameResult: (roomId: string) => api.get(`/games/result/${roomId}`),
 };
 
+// Board Config API
+export const boardConfigApi = {
+  /** 获取默认配置 */
+  getDefault: () => api.get('/board-configs/default'),
+
+  /** 获取系统模板列表 */
+  listTemplates: () => api.get('/board-configs/templates'),
+
+  /** 获取当前用户的个性化配置 */
+  listMy: () => api.get('/board-configs/my'),
+
+  /** 获取所有配置 */
+  listAll: () => api.get('/board-configs'),
+
+  /** 根据 ID 获取配置 */
+  getById: (id: number) => api.get(`/board-configs/${id}`),
+
+  /** 创建新配置 */
+  create: (config: {
+    name?: string;
+    totalPlatforms?: number;
+    platformSpacingZ?: number;
+    zigzagAmplitude?: number;
+    zigzagPeriod?: number;
+    platformEvents?: string;
+    diceEvents?: string;
+  }) => api.post('/board-configs', config),
+
+  /** 从模板复制一份个性化配置 */
+  cloneFromTemplate: (templateId: number) => api.post(`/board-configs/${templateId}/clone`),
+
+  /** 更新配置 */
+  update: (id: number, config: {
+    name?: string;
+    totalPlatforms?: number;
+    platformSpacingZ?: number;
+    zigzagAmplitude?: number;
+    zigzagPeriod?: number;
+    platformEvents?: string;
+    diceEvents?: string;
+  }) => api.put(`/board-configs/${id}`, config),
+
+  /** 删除配置 */
+  delete: (id: number) => api.delete(`/board-configs/${id}`),
+
+  /** 设为默认配置 */
+  setDefault: (id: number) => api.put(`/board-configs/${id}/set-default`),
+};
+
 export default api;

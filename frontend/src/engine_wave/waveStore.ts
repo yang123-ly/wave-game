@@ -7,6 +7,9 @@ import {
   DICE_EVENTS,
   PLATFORM_EVENTS,
   TOTAL_PLATFORMS,
+  getTotalPlatforms,
+  getPlatformEventsFromConfig,
+  getDiceEventsFromConfig,
 } from './constants';
 import type {
   CurrentTurn,
@@ -47,7 +50,7 @@ const initialPlayer = (side: PlayerId, name: string): WavePlayerState => ({
 });
 
 const clampPlatform = (i: number) =>
-  Math.max(0, Math.min(TOTAL_PLATFORMS - 1, i));
+  Math.max(0, Math.min(getTotalPlatforms() - 1, i));
 
 export const useWaveStore = create<WaveStore>((set, get) => ({
   phase: 'idle',
@@ -81,7 +84,8 @@ export const useWaveStore = create<WaveStore>((set, get) => ({
     if (s.phase !== 'p1_turn' && s.phase !== 'p2_turn') return null;
     if (s.currentTurn !== side) return null;
     const face = (Math.floor(Math.random() * 6) + 1) as DiceFace;
-    const event = DICE_EVENTS[face - 1];
+    const diceEvents = getDiceEventsFromConfig();
+    const event = diceEvents[face - 1] ?? DICE_EVENTS[face - 1];
     set({ phase: 'rolling', currentDice: event });
     return face;
   },
@@ -97,20 +101,22 @@ export const useWaveStore = create<WaveStore>((set, get) => ({
     const steps = s.currentDice.face;
     me.platformIndex = clampPlatform(me.platformIndex + steps);
 
-    // 到达格子的文案
-    const platformText = PLATFORM_EVENTS[me.platformIndex] ?? `第 ${me.platformIndex} 格`;
+    // 到达格子的文案（从配置中心读取）
+    const platformEvents = getPlatformEventsFromConfig();
+    const totalPlatforms = getTotalPlatforms();
+    const platformText = platformEvents[me.platformIndex] ?? `第 ${me.platformIndex} 格`;
     const banner = {
       title: s.currentDice.name,
       detail: platformText,
       icon: s.currentDice.icon,
     };
 
-    // 检查终点
+    // 检查终点（使用动态配置的总格数）
     let phase: WavePhase = 'resolving';
     let winner: WinnerSide = null;
     let finishedAt: number | null = null;
-    if (me.platformIndex >= TOTAL_PLATFORMS - 1) {
-      me.platformIndex = TOTAL_PLATFORMS - 1;
+    if (me.platformIndex >= totalPlatforms - 1) {
+      me.platformIndex = totalPlatforms - 1;
       me.finished = true;
       me.finishedAt = Date.now();
       phase = 'finished';
